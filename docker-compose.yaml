@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  cdss-app:
+    build: ./backend
+    restart: always
+    ports:
+      - "80:8000"
+    volumes:
+      - sqlite_data:/app/data  # База данных надежно сохраняется здесь
+
+volumes:
+  sqlite_data:

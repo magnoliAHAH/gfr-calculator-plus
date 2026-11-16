@@ -1,0 +1,4708 @@
+{
+  "components": {
+    "schemas": {
+      "AuditEntry": {
+        "properties": {
+          "calculation_mode": {
+            "title": "Calculation Mode",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "decision_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decision At"
+          },
+          "doctor_decision": {
+            "description": "Для расчёта — текущее решение (pending, если не принято)",
+            "title": "Doctor Decision",
+            "type": "string"
+          },
+          "drug": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              {
+                "code": "VANCO_IV",
+                "name": "Ванкомицин"
+              }
+            ],
+            "title": "Drug"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "input_data": {
+            "additionalProperties": true,
+            "title": "Input Data",
+            "type": "object"
+          },
+          "override_new_dose_mg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Override New Dose Mg"
+          },
+          "override_new_frequency_hours": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Override New Frequency Hours"
+          },
+          "override_reason_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Override Reason Category"
+          },
+          "override_reason_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Override Reason Text"
+          },
+          "parent_audit_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Audit Id"
+          },
+          "patient_ref": {
+            "title": "Patient Ref",
+            "type": "string"
+          },
+          "prev_hash": {
+            "title": "Prev Hash",
+            "type": "string"
+          },
+          "recommended_dose": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommended Dose"
+          },
+          "record_hash": {
+            "title": "Record Hash",
+            "type": "string"
+          },
+          "record_type": {
+            "enum": [
+              "calculation",
+              "decision"
+            ],
+            "title": "Record Type",
+            "type": "string"
+          },
+          "rule_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rule Id"
+          },
+          "rule_version": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rule Version"
+          },
+          "user": {
+            "additionalProperties": true,
+            "examples": [
+              {
+                "full_name": "Иванов И.И.",
+                "id": 5
+              }
+            ],
+            "title": "User",
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "record_type",
+          "parent_audit_id",
+          "user",
+          "patient_ref",
+          "drug",
+          "rule_id",
+          "rule_version",
+          "input_data",
+          "recommended_dose",
+          "calculation_mode",
+          "doctor_decision",
+          "override_reason_category",
+          "override_reason_text",
+          "override_new_dose_mg",
+          "override_new_frequency_hours",
+          "decision_at",
+          "record_hash",
+          "prev_hash"
+        ],
+        "title": "AuditEntry",
+        "type": "object"
+      },
+      "AuditPage": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "page",
+          "limit"
+        ],
+        "title": "AuditPage",
+        "type": "object"
+      },
+      "Body_import_rules_api_v1_admin_rules_import_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_rules_api_v1_admin_rules_import_post",
+        "type": "object"
+      },
+      "BracketSpec": {
+        "properties": {
+          "clinical_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clinical Note"
+          },
+          "dose_mg": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Фиксированная доза, мг",
+            "title": "Dose Mg"
+          },
+          "dose_per_kg": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Доза, мг/кг",
+            "title": "Dose Per Kg"
+          },
+          "frequency_hours": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null — однократно",
+            "title": "Frequency Hours"
+          },
+          "infusion_duration_min": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": 60,
+            "title": "Infusion Duration Min"
+          },
+          "loading_dose_per_kg": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loading Dose Per Kg"
+          },
+          "max_crcl": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "maximum": 9999.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Только при rrt_mode=none",
+            "title": "Max Crcl"
+          },
+          "max_daily_dose_mg": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Daily Dose Mg"
+          },
+          "min_crcl": {
+            "anyOf": [
+              {
+                "maximum": 9999.0,
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Только при rrt_mode=none",
+            "title": "Min Crcl"
+          },
+          "rrt_mode": {
+            "default": "none",
+            "description": "none/hd/pd/cvvh/cvvhd/cvvhdf",
+            "title": "Rrt Mode",
+            "type": "string"
+          },
+          "tdm_required": {
+            "default": false,
+            "title": "Tdm Required",
+            "type": "boolean"
+          }
+        },
+        "title": "BracketSpec",
+        "type": "object"
+      },
+      "CalculateRequest": {
+        "properties": {
+          "age_years": {
+            "description": "Возраст, лет",
+            "examples": [
+              45
+            ],
+            "maximum": 120.0,
+            "minimum": 0.0,
+            "title": "Age Years",
+            "type": "number"
+          },
+          "aki_stage": {
+            "description": "Стадия ОПП (AKI)",
+            "enum": [
+              "none",
+              "stage_1",
+              "stage_2",
+              "stage_3"
+            ],
+            "examples": [
+              "none"
+            ],
+            "title": "Aki Stage",
+            "type": "string"
+          },
+          "creatinine_umol_l": {
+            "anyOf": [
+              {
+                "maximum": 3000.0,
+                "minimum": 10.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Креатинин, мкмоль/л",
+            "examples": [
+              110.7
+            ],
+            "title": "Creatinine Umol L"
+          },
+          "drug_code": {
+            "description": "Код препарата из /meta/drugs",
+            "examples": [
+              "VANCO_IV"
+            ],
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "ecmo": {
+            "description": "Пациент на ECMO",
+            "examples": [
+              false
+            ],
+            "title": "Ecmo",
+            "type": "boolean"
+          },
+          "height_cm": {
+            "anyOf": [
+              {
+                "maximum": 250.0,
+                "minimum": 100.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Рост, см",
+            "examples": [
+              175
+            ],
+            "title": "Height Cm"
+          },
+          "indication": {
+            "description": "Показание из /meta/indications",
+            "examples": [
+              "sepsis_bacteremia"
+            ],
+            "title": "Indication",
+            "type": "string"
+          },
+          "patient_ref": {
+            "description": "Псевдоним пациента из МИС. НЕ ФИО.",
+            "examples": [
+              "p_abc123"
+            ],
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Patient Ref",
+            "type": "string"
+          },
+          "pregnancy": {
+            "description": "Беременность",
+            "examples": [
+              false
+            ],
+            "title": "Pregnancy",
+            "type": "boolean"
+          },
+          "rrt_mode": {
+            "description": "Режим заместительной почечной терапии",
+            "enum": [
+              "none",
+              "hd",
+              "pd",
+              "cvvh",
+              "cvvhd",
+              "cvvhdf"
+            ],
+            "examples": [
+              "none"
+            ],
+            "title": "Rrt Mode",
+            "type": "string"
+          },
+          "sex_at_birth": {
+            "description": "Пол при рождении",
+            "enum": [
+              "male",
+              "female"
+            ],
+            "examples": [
+              "male"
+            ],
+            "title": "Sex At Birth",
+            "type": "string"
+          },
+          "weight_kg": {
+            "anyOf": [
+              {
+                "maximum": 400.0,
+                "minimum": 20.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Вес, кг",
+            "examples": [
+              120
+            ],
+            "title": "Weight Kg"
+          }
+        },
+        "required": [
+          "drug_code",
+          "indication",
+          "age_years",
+          "sex_at_birth",
+          "aki_stage",
+          "rrt_mode",
+          "pregnancy",
+          "ecmo",
+          "patient_ref"
+        ],
+        "title": "CalculateRequest",
+        "type": "object"
+      },
+      "ChainStatus": {
+        "properties": {
+          "first_invalid_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Invalid Id"
+          },
+          "last_verified_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Verified At"
+          },
+          "total_records": {
+            "title": "Total Records",
+            "type": "integer"
+          },
+          "valid": {
+            "title": "Valid",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "valid",
+          "total_records",
+          "last_verified_at",
+          "first_invalid_id"
+        ],
+        "title": "ChainStatus",
+        "type": "object"
+      },
+      "ChangePasswordRequest": {
+        "properties": {
+          "current_password": {
+            "description": "Текущий (временный) пароль",
+            "title": "Current Password",
+            "type": "string"
+          },
+          "new_password": {
+            "description": "Новый пароль, 10–72 символа",
+            "maxLength": 72,
+            "minLength": 10,
+            "title": "New Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "current_password",
+          "new_password"
+        ],
+        "title": "ChangePasswordRequest",
+        "type": "object"
+      },
+      "DashboardMetrics": {
+        "properties": {
+          "audit_chain": {
+            "$ref": "#/components/schemas/ChainStatus"
+          },
+          "drugs_top": {
+            "items": {
+              "$ref": "#/components/schemas/DrugStat"
+            },
+            "title": "Drugs Top",
+            "type": "array"
+          },
+          "failsafe_rate": {
+            "title": "Failsafe Rate",
+            "type": "number"
+          },
+          "override_reasons_top": {
+            "items": {
+              "$ref": "#/components/schemas/ReasonStat"
+            },
+            "title": "Override Reasons Top",
+            "type": "array"
+          },
+          "performance": {
+            "$ref": "#/components/schemas/Perf"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          },
+          "recommendations": {
+            "$ref": "#/components/schemas/RecStats"
+          },
+          "renal_function_histogram": {
+            "items": {
+              "$ref": "#/components/schemas/HistBucket"
+            },
+            "title": "Renal Function Histogram",
+            "type": "array"
+          }
+        },
+        "required": [
+          "period",
+          "recommendations",
+          "override_reasons_top",
+          "drugs_top",
+          "renal_function_histogram",
+          "performance",
+          "audit_chain",
+          "failsafe_rate"
+        ],
+        "title": "DashboardMetrics",
+        "type": "object"
+      },
+      "DecisionRequest": {
+        "properties": {
+          "decision": {
+            "enum": [
+              "accepted",
+              "overridden",
+              "contraindication_acknowledged"
+            ],
+            "examples": [
+              "overridden"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "new_dose_mg": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              1000
+            ],
+            "title": "New Dose Mg"
+          },
+          "new_frequency_hours": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              24
+            ],
+            "title": "New Frequency Hours"
+          },
+          "override_reason_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Обязательно при overridden",
+            "examples": [
+              "clinical_judgment"
+            ],
+            "title": "Override Reason Category"
+          },
+          "override_reason_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Минимум 5 символов при overridden",
+            "examples": [
+              "Планируется CRRT"
+            ],
+            "title": "Override Reason Text"
+          }
+        },
+        "required": [
+          "decision"
+        ],
+        "title": "DecisionRequest",
+        "type": "object"
+      },
+      "DecisionResponse": {
+        "properties": {
+          "audit_id": {
+            "description": "ID расчёта, к которому относится решение",
+            "examples": [
+              123
+            ],
+            "title": "Audit Id",
+            "type": "integer"
+          },
+          "decision": {
+            "enum": [
+              "accepted",
+              "overridden",
+              "contraindication_acknowledged"
+            ],
+            "title": "Decision",
+            "type": "string"
+          },
+          "decision_at": {
+            "format": "date-time",
+            "title": "Decision At",
+            "type": "string"
+          },
+          "decision_audit_id": {
+            "description": "ID записи решения в аудите",
+            "examples": [
+              125
+            ],
+            "title": "Decision Audit Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "audit_id",
+          "decision_audit_id",
+          "decision",
+          "decision_at"
+        ],
+        "title": "DecisionResponse",
+        "type": "object"
+      },
+      "DemoCalculateRequest": {
+        "description": "Те же поля, что у /calculate, но без patient_ref (демо не связано с пациентом).",
+        "properties": {
+          "age_years": {
+            "maximum": 120.0,
+            "minimum": 0.0,
+            "title": "Age Years",
+            "type": "number"
+          },
+          "aki_stage": {
+            "default": "none",
+            "enum": [
+              "none",
+              "stage_1",
+              "stage_2",
+              "stage_3"
+            ],
+            "title": "Aki Stage",
+            "type": "string"
+          },
+          "creatinine_umol_l": {
+            "anyOf": [
+              {
+                "maximum": 3000.0,
+                "minimum": 10.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Creatinine Umol L"
+          },
+          "drug_code": {
+            "examples": [
+              "VANCO_IV"
+            ],
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "ecmo": {
+            "default": false,
+            "title": "Ecmo",
+            "type": "boolean"
+          },
+          "height_cm": {
+            "anyOf": [
+              {
+                "maximum": 250.0,
+                "minimum": 100.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height Cm"
+          },
+          "indication": {
+            "examples": [
+              "sepsis_bacteremia"
+            ],
+            "title": "Indication",
+            "type": "string"
+          },
+          "pregnancy": {
+            "default": false,
+            "title": "Pregnancy",
+            "type": "boolean"
+          },
+          "rrt_mode": {
+            "default": "none",
+            "enum": [
+              "none",
+              "hd",
+              "pd",
+              "cvvh",
+              "cvvhd",
+              "cvvhdf"
+            ],
+            "title": "Rrt Mode",
+            "type": "string"
+          },
+          "sex_at_birth": {
+            "enum": [
+              "male",
+              "female"
+            ],
+            "title": "Sex At Birth",
+            "type": "string"
+          },
+          "weight_kg": {
+            "anyOf": [
+              {
+                "maximum": 400.0,
+                "minimum": 20.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weight Kg"
+          }
+        },
+        "required": [
+          "drug_code",
+          "indication",
+          "age_years",
+          "sex_at_birth"
+        ],
+        "title": "DemoCalculateRequest",
+        "type": "object"
+      },
+      "DemoDrug": {
+        "properties": {
+          "drug_code": {
+            "examples": [
+              "VANCO_IV"
+            ],
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "drug_name": {
+            "examples": [
+              "Ванкомицин"
+            ],
+            "title": "Drug Name",
+            "type": "string"
+          },
+          "indications": {
+            "examples": [
+              [
+                "sepsis_bacteremia"
+              ]
+            ],
+            "items": {
+              "type": "string"
+            },
+            "title": "Indications",
+            "type": "array"
+          }
+        },
+        "required": [
+          "drug_code",
+          "drug_name",
+          "indications"
+        ],
+        "title": "DemoDrug",
+        "type": "object"
+      },
+      "DemoScenario": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "examples": [
+              "obesity"
+            ],
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "description": "Что показывает этот сценарий",
+            "title": "Message",
+            "type": "string"
+          },
+          "request": {
+            "$ref": "#/components/schemas/DemoCalculateRequest"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "message",
+          "request"
+        ],
+        "title": "DemoScenario",
+        "type": "object"
+      },
+      "DoseInfo": {
+        "properties": {
+          "amount_mg": {
+            "examples": [
+              1350.0
+            ],
+            "title": "Amount Mg",
+            "type": "number"
+          },
+          "capped_by_max_daily": {
+            "examples": [
+              false
+            ],
+            "title": "Capped By Max Daily",
+            "type": "boolean"
+          },
+          "frequency_hours": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "null для однократной дозы",
+            "examples": [
+              12
+            ],
+            "title": "Frequency Hours"
+          },
+          "infusion_duration_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              60
+            ],
+            "title": "Infusion Duration Min"
+          },
+          "loading_dose_mg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Нагрузочная доза в первые сутки",
+            "examples": [
+              null
+            ],
+            "title": "Loading Dose Mg"
+          },
+          "max_daily_dose_mg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              null
+            ],
+            "title": "Max Daily Dose Mg"
+          },
+          "single_dose": {
+            "examples": [
+              false
+            ],
+            "title": "Single Dose",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "amount_mg",
+          "frequency_hours",
+          "single_dose",
+          "infusion_duration_min",
+          "max_daily_dose_mg",
+          "loading_dose_mg",
+          "capped_by_max_daily"
+        ],
+        "title": "DoseInfo",
+        "type": "object"
+      },
+      "DrugCreate": {
+        "properties": {
+          "atc_code": {
+            "anyOf": [
+              {
+                "maxLength": 20,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              "J01XA01"
+            ],
+            "title": "Atc Code"
+          },
+          "drug_code": {
+            "examples": [
+              "VANCO_IV"
+            ],
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "drug_name": {
+            "examples": [
+              "Ванкомицин"
+            ],
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Drug Name",
+            "type": "string"
+          },
+          "formulation": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formulation"
+          },
+          "rounding_step_mg": {
+            "default": 250,
+            "description": "Шаг округления дозы, мг",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10000.0,
+            "title": "Rounding Step Mg",
+            "type": "number"
+          },
+          "route": {
+            "examples": [
+              "IV"
+            ],
+            "maxLength": 50,
+            "minLength": 1,
+            "title": "Route",
+            "type": "string"
+          }
+        },
+        "required": [
+          "drug_code",
+          "drug_name",
+          "route"
+        ],
+        "title": "DrugCreate",
+        "type": "object"
+      },
+      "DrugMetaOut": {
+        "properties": {
+          "atc_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atc Code"
+          },
+          "drug_code": {
+            "examples": [
+              "VANCO_IV"
+            ],
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "drug_name": {
+            "examples": [
+              "Ванкомицин"
+            ],
+            "title": "Drug Name",
+            "type": "string"
+          },
+          "formulation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formulation"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "rounding_step_mg": {
+            "title": "Rounding Step Mg",
+            "type": "number"
+          },
+          "route": {
+            "examples": [
+              "IV"
+            ],
+            "title": "Route",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "drug_code",
+          "drug_name",
+          "atc_code",
+          "route",
+          "formulation",
+          "rounding_step_mg"
+        ],
+        "title": "DrugMetaOut",
+        "type": "object"
+      },
+      "DrugOut": {
+        "properties": {
+          "atc_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atc Code"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "drug_code": {
+            "examples": [
+              "VANCO_IV"
+            ],
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "drug_name": {
+            "examples": [
+              "Ванкомицин"
+            ],
+            "title": "Drug Name",
+            "type": "string"
+          },
+          "formulation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formulation"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "rounding_step_mg": {
+            "title": "Rounding Step Mg",
+            "type": "number"
+          },
+          "route": {
+            "examples": [
+              "IV"
+            ],
+            "title": "Route",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "drug_code",
+          "drug_name",
+          "atc_code",
+          "route",
+          "formulation",
+          "rounding_step_mg",
+          "is_active",
+          "created_at"
+        ],
+        "title": "DrugOut",
+        "type": "object"
+      },
+      "DrugPatch": {
+        "properties": {
+          "atc_code": {
+            "anyOf": [
+              {
+                "maxLength": 20,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Atc Code"
+          },
+          "drug_name": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drug Name"
+          },
+          "formulation": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formulation"
+          },
+          "rounding_step_mg": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "maximum": 10000.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rounding Step Mg"
+          },
+          "route": {
+            "anyOf": [
+              {
+                "maxLength": 50,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route"
+          }
+        },
+        "title": "DrugPatch",
+        "type": "object"
+      },
+      "DrugStat": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "count"
+        ],
+        "title": "DrugStat",
+        "type": "object"
+      },
+      "FailSafeResponse": {
+        "properties": {
+          "audit_id": {
+            "examples": [
+              124
+            ],
+            "title": "Audit Id",
+            "type": "integer"
+          },
+          "calculation_mode": {
+            "const": "blocked_fail_safe",
+            "title": "Calculation Mode",
+            "type": "string"
+          },
+          "details": {
+            "examples": [
+              "У пациента AKI stage 2."
+            ],
+            "title": "Details",
+            "type": "string"
+          },
+          "generated_at": {
+            "format": "date-time",
+            "title": "Generated At",
+            "type": "string"
+          },
+          "no_recommendation_display": {
+            "examples": [
+              "Требуется консультация клинического фармаколога"
+            ],
+            "title": "No Recommendation Display",
+            "type": "string"
+          },
+          "no_recommendation_reason": {
+            "examples": [
+              "severe_aki_requires_consult"
+            ],
+            "title": "No Recommendation Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "audit_id",
+          "calculation_mode",
+          "no_recommendation_reason",
+          "no_recommendation_display",
+          "details",
+          "generated_at"
+        ],
+        "title": "FailSafeResponse",
+        "type": "object"
+      },
+      "FormulaOut": {
+        "properties": {
+          "code": {
+            "examples": [
+              "cockcroft_gault"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "output_unit": {
+            "examples": [
+              "mL/min"
+            ],
+            "title": "Output Unit",
+            "type": "string"
+          },
+          "requires_height": {
+            "title": "Requires Height",
+            "type": "boolean"
+          },
+          "requires_weight": {
+            "title": "Requires Weight",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "description",
+          "requires_weight",
+          "requires_height",
+          "output_unit"
+        ],
+        "title": "FormulaOut",
+        "type": "object"
+      },
+      "FormulaRef": {
+        "properties": {
+          "code": {
+            "examples": [
+              "cockcroft_gault"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "name": {
+            "examples": [
+              "Cockcroft-Gault"
+            ],
+            "title": "Name",
+            "type": "string"
+          },
+          "source": {
+            "examples": [
+              "IDSA 2020 Vancomycin Guidelines"
+            ],
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "source"
+        ],
+        "title": "FormulaRef",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthOut": {
+        "properties": {
+          "db": {
+            "examples": [
+              "ok"
+            ],
+            "title": "Db",
+            "type": "string"
+          },
+          "status": {
+            "examples": [
+              "ok"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "uptime_seconds": {
+            "title": "Uptime Seconds",
+            "type": "integer"
+          },
+          "version": {
+            "examples": [
+              "1.0.0"
+            ],
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "db",
+          "version",
+          "uptime_seconds"
+        ],
+        "title": "HealthOut",
+        "type": "object"
+      },
+      "HistBucket": {
+        "properties": {
+          "bucket": {
+            "title": "Bucket",
+            "type": "string"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "bucket",
+          "count"
+        ],
+        "title": "HistBucket",
+        "type": "object"
+      },
+      "ImportResult": {
+        "properties": {
+          "imported": {
+            "items": {
+              "$ref": "#/components/schemas/ImportedItem"
+            },
+            "title": "Imported",
+            "type": "array"
+          }
+        },
+        "required": [
+          "imported"
+        ],
+        "title": "ImportResult",
+        "type": "object"
+      },
+      "ImportedItem": {
+        "properties": {
+          "brackets": {
+            "title": "Brackets",
+            "type": "integer"
+          },
+          "drug_code": {
+            "title": "Drug Code",
+            "type": "string"
+          },
+          "indication": {
+            "title": "Indication",
+            "type": "string"
+          },
+          "retired_rows": {
+            "description": "Сколько строк прежней версии закрыто",
+            "title": "Retired Rows",
+            "type": "integer"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "indication",
+          "version",
+          "brackets",
+          "retired_rows",
+          "drug_code"
+        ],
+        "title": "ImportedItem",
+        "type": "object"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "description": "Email пользователя",
+            "examples": [
+              "doctor@hospital.ru"
+            ],
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "description": "Пароль",
+            "examples": [
+              "s3cret-pass"
+            ],
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest",
+        "type": "object"
+      },
+      "LoginResponse": {
+        "properties": {
+          "access_token": {
+            "description": "JWT (24 ч)",
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "default": "bearer",
+            "examples": [
+              "bearer"
+            ],
+            "title": "Token Type",
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserOut"
+          }
+        },
+        "required": [
+          "access_token",
+          "user"
+        ],
+        "title": "LoginResponse",
+        "type": "object"
+      },
+      "OrgCreate": {
+        "properties": {
+          "admin_email": {
+            "examples": [
+              "head@gb1.ru"
+            ],
+            "maxLength": 200,
+            "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+            "title": "Admin Email",
+            "type": "string"
+          },
+          "admin_full_name": {
+            "examples": [
+              "Сидоров С.С."
+            ],
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Admin Full Name",
+            "type": "string"
+          },
+          "code": {
+            "examples": [
+              "gb1"
+            ],
+            "maxLength": 50,
+            "minLength": 2,
+            "pattern": "^[a-z0-9][a-z0-9_-]*$",
+            "title": "Code",
+            "type": "string"
+          },
+          "copy_seed": {
+            "default": true,
+            "description": "Скопировать seed-препараты и правила",
+            "title": "Copy Seed",
+            "type": "boolean"
+          },
+          "name": {
+            "examples": [
+              "Городская больница №1"
+            ],
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "admin_email",
+          "admin_full_name"
+        ],
+        "title": "OrgCreate",
+        "type": "object"
+      },
+      "OrgCreated": {
+        "properties": {
+          "admin_email": {
+            "title": "Admin Email",
+            "type": "string"
+          },
+          "admin_user_id": {
+            "title": "Admin User Id",
+            "type": "integer"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "seeded": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SeedResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "setup_url": {
+            "title": "Setup Url",
+            "type": "string"
+          },
+          "temp_password": {
+            "description": "Показывается один раз",
+            "title": "Temp Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "admin_user_id",
+          "admin_email",
+          "temp_password",
+          "setup_url",
+          "seeded"
+        ],
+        "title": "OrgCreated",
+        "type": "object"
+      },
+      "OrgListItem": {
+        "properties": {
+          "calculations_count": {
+            "title": "Calculations Count",
+            "type": "integer"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "users_count": {
+            "title": "Users Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "is_active",
+          "created_at",
+          "users_count",
+          "calculations_count"
+        ],
+        "title": "OrgListItem",
+        "type": "object"
+      },
+      "OrgOut": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "is_active",
+          "created_at"
+        ],
+        "title": "OrgOut",
+        "type": "object"
+      },
+      "OrgPatch": {
+        "properties": {
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Active"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "title": "OrgPatch",
+        "type": "object"
+      },
+      "OverrideReasonOut": {
+        "properties": {
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "code": {
+            "examples": [
+              "clinical_judgment"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "display_name",
+          "category"
+        ],
+        "title": "OverrideReasonOut",
+        "type": "object"
+      },
+      "Perf": {
+        "properties": {
+          "p50_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50 Ms"
+          },
+          "p95_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95 Ms"
+          }
+        },
+        "required": [
+          "p50_ms",
+          "p95_ms"
+        ],
+        "title": "Perf",
+        "type": "object"
+      },
+      "Period": {
+        "properties": {
+          "from": {
+            "format": "date-time",
+            "title": "From",
+            "type": "string"
+          },
+          "to": {
+            "format": "date-time",
+            "title": "To",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "title": "Period",
+        "type": "object"
+      },
+      "ReasonStat": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "percentage": {
+            "title": "Percentage",
+            "type": "number"
+          }
+        },
+        "required": [
+          "code",
+          "count",
+          "percentage"
+        ],
+        "title": "ReasonStat",
+        "type": "object"
+      },
+      "RecStats": {
+        "properties": {
+          "accepted": {
+            "title": "Accepted",
+            "type": "integer"
+          },
+          "accepted_pct": {
+            "title": "Accepted Pct",
+            "type": "number"
+          },
+          "overridden": {
+            "title": "Overridden",
+            "type": "integer"
+          },
+          "overridden_pct": {
+            "title": "Overridden Pct",
+            "type": "number"
+          },
+          "pending": {
+            "title": "Pending",
+            "type": "integer"
+          },
+          "rejected": {
+            "title": "Rejected",
+            "type": "integer"
+          },
+          "rejected_pct": {
+            "title": "Rejected Pct",
+            "type": "number"
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total",
+          "accepted",
+          "overridden",
+          "rejected",
+          "pending",
+          "accepted_pct",
+          "overridden_pct",
+          "rejected_pct"
+        ],
+        "title": "RecStats",
+        "type": "object"
+      },
+      "Recommendation": {
+        "properties": {
+          "audit_id": {
+            "examples": [
+              123
+            ],
+            "title": "Audit Id",
+            "type": "integer"
+          },
+          "calculation_mode": {
+            "const": "bracket_fallback",
+            "title": "Calculation Mode",
+            "type": "string"
+          },
+          "dose": {
+            "$ref": "#/components/schemas/DoseInfo"
+          },
+          "formula": {
+            "$ref": "#/components/schemas/FormulaRef"
+          },
+          "generated_at": {
+            "format": "date-time",
+            "title": "Generated At",
+            "type": "string"
+          },
+          "renal_function": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RenalFunction"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rule_id": {
+            "examples": [
+              45
+            ],
+            "title": "Rule Id",
+            "type": "integer"
+          },
+          "rule_version": {
+            "examples": [
+              1
+            ],
+            "title": "Rule Version",
+            "type": "integer"
+          },
+          "tdm_required": {
+            "examples": [
+              true
+            ],
+            "title": "Tdm Required",
+            "type": "boolean"
+          },
+          "warnings": {
+            "examples": [
+              [
+                "Требуется контроль концентрации препарата (TDM)."
+              ]
+            ],
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          },
+          "weight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WeightInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "audit_id",
+          "calculation_mode",
+          "formula",
+          "weight",
+          "renal_function",
+          "dose",
+          "tdm_required",
+          "warnings",
+          "rule_version",
+          "rule_id",
+          "generated_at"
+        ],
+        "title": "Recommendation",
+        "type": "object"
+      },
+      "RenalFunction": {
+        "properties": {
+          "interpretation": {
+            "examples": [
+              "normal"
+            ],
+            "title": "Interpretation",
+            "type": "string"
+          },
+          "unit": {
+            "examples": [
+              "mL/min"
+            ],
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "examples": [
+              95.2
+            ],
+            "title": "Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value",
+          "unit",
+          "interpretation"
+        ],
+        "title": "RenalFunction",
+        "type": "object"
+      },
+      "RuleListOut": {
+        "properties": {
+          "drug_id": {
+            "title": "Drug Id",
+            "type": "integer"
+          },
+          "versions": {
+            "items": {
+              "$ref": "#/components/schemas/RuleVersionGroup"
+            },
+            "title": "Versions",
+            "type": "array"
+          }
+        },
+        "required": [
+          "drug_id",
+          "versions"
+        ],
+        "title": "RuleListOut",
+        "type": "object"
+      },
+      "RuleOut": {
+        "properties": {
+          "clinical_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clinical Note"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "created_by": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created By"
+          },
+          "dose_mg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dose Mg"
+          },
+          "dose_per_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dose Per Kg"
+          },
+          "drug_id": {
+            "title": "Drug Id",
+            "type": "integer"
+          },
+          "effective_from": {
+            "format": "date-time",
+            "title": "Effective From",
+            "type": "string"
+          },
+          "formula_code": {
+            "title": "Formula Code",
+            "type": "string"
+          },
+          "frequency_hours": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Frequency Hours"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "indication": {
+            "title": "Indication",
+            "type": "string"
+          },
+          "infusion_duration_min": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Infusion Duration Min"
+          },
+          "loading_dose_per_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loading Dose Per Kg"
+          },
+          "max_age_years": {
+            "title": "Max Age Years",
+            "type": "integer"
+          },
+          "max_allowed_aki": {
+            "title": "Max Allowed Aki",
+            "type": "string"
+          },
+          "max_crcl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Crcl"
+          },
+          "max_daily_dose_mg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Daily Dose Mg"
+          },
+          "min_age_years": {
+            "title": "Min Age Years",
+            "type": "integer"
+          },
+          "min_crcl": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Crcl"
+          },
+          "pregnancy_contraindicated": {
+            "title": "Pregnancy Contraindicated",
+            "type": "boolean"
+          },
+          "retired_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retired At"
+          },
+          "rrt_mode": {
+            "title": "Rrt Mode",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "tdm_required": {
+            "title": "Tdm Required",
+            "type": "boolean"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          },
+          "weight_rule": {
+            "title": "Weight Rule",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "drug_id",
+          "version",
+          "indication",
+          "formula_code",
+          "weight_rule",
+          "rrt_mode",
+          "min_crcl",
+          "max_crcl",
+          "max_allowed_aki",
+          "min_age_years",
+          "max_age_years",
+          "pregnancy_contraindicated",
+          "dose_mg",
+          "dose_per_kg",
+          "loading_dose_per_kg",
+          "frequency_hours",
+          "infusion_duration_min",
+          "max_daily_dose_mg",
+          "tdm_required",
+          "clinical_note",
+          "source",
+          "effective_from",
+          "retired_at",
+          "created_at",
+          "created_by"
+        ],
+        "title": "RuleOut",
+        "type": "object"
+      },
+      "RuleVersionCreated": {
+        "properties": {
+          "brackets": {
+            "title": "Brackets",
+            "type": "integer"
+          },
+          "indication": {
+            "title": "Indication",
+            "type": "string"
+          },
+          "retired_rows": {
+            "description": "Сколько строк прежней версии закрыто",
+            "title": "Retired Rows",
+            "type": "integer"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "indication",
+          "version",
+          "brackets",
+          "retired_rows"
+        ],
+        "title": "RuleVersionCreated",
+        "type": "object"
+      },
+      "RuleVersionGroup": {
+        "properties": {
+          "indication": {
+            "title": "Indication",
+            "type": "string"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "retired_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retired At"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/RuleOut"
+            },
+            "title": "Rules",
+            "type": "array"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "indication",
+          "version",
+          "is_active",
+          "retired_at",
+          "rules"
+        ],
+        "title": "RuleVersionGroup",
+        "type": "object"
+      },
+      "RuleVersionSpec": {
+        "properties": {
+          "brackets": {
+            "items": {
+              "$ref": "#/components/schemas/BracketSpec"
+            },
+            "minItems": 1,
+            "title": "Brackets",
+            "type": "array"
+          },
+          "formula_code": {
+            "examples": [
+              "cockcroft_gault"
+            ],
+            "title": "Formula Code",
+            "type": "string"
+          },
+          "indication": {
+            "examples": [
+              "sepsis_bacteremia"
+            ],
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Indication",
+            "type": "string"
+          },
+          "max_age_years": {
+            "default": 120,
+            "maximum": 120.0,
+            "minimum": 0.0,
+            "title": "Max Age Years",
+            "type": "integer"
+          },
+          "max_allowed_aki": {
+            "default": "stage_1",
+            "title": "Max Allowed Aki",
+            "type": "string"
+          },
+          "min_age_years": {
+            "default": 18,
+            "maximum": 120.0,
+            "minimum": 0.0,
+            "title": "Min Age Years",
+            "type": "integer"
+          },
+          "pregnancy_contraindicated": {
+            "default": false,
+            "title": "Pregnancy Contraindicated",
+            "type": "boolean"
+          },
+          "source": {
+            "examples": [
+              "IDSA 2020 Vancomycin Guidelines"
+            ],
+            "minLength": 1,
+            "title": "Source",
+            "type": "string"
+          },
+          "weight_rule": {
+            "examples": [
+              "auto"
+            ],
+            "title": "Weight Rule",
+            "type": "string"
+          }
+        },
+        "required": [
+          "indication",
+          "formula_code",
+          "weight_rule",
+          "source",
+          "brackets"
+        ],
+        "title": "RuleVersionSpec",
+        "type": "object"
+      },
+      "SeedResult": {
+        "properties": {
+          "drugs_added": {
+            "title": "Drugs Added",
+            "type": "integer"
+          },
+          "rules_added": {
+            "title": "Rules Added",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "drugs_added",
+          "rules_added"
+        ],
+        "title": "SeedResult",
+        "type": "object"
+      },
+      "UserAdminOut": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "full_name": {
+            "title": "Full Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "must_change_password": {
+            "title": "Must Change Password",
+            "type": "boolean"
+          },
+          "role": {
+            "enum": [
+              "super_admin",
+              "org_admin",
+              "pharmacist",
+              "physician",
+              "auditor"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "role",
+          "is_active",
+          "must_change_password",
+          "created_at"
+        ],
+        "title": "UserAdminOut",
+        "type": "object"
+      },
+      "UserInvite": {
+        "properties": {
+          "email": {
+            "examples": [
+              "new.doctor@hospital.ru"
+            ],
+            "maxLength": 200,
+            "minLength": 3,
+            "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+            "title": "Email",
+            "type": "string"
+          },
+          "full_name": {
+            "examples": [
+              "Петров П.П."
+            ],
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Full Name",
+            "type": "string"
+          },
+          "role": {
+            "examples": [
+              "physician"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "full_name",
+          "role"
+        ],
+        "title": "UserInvite",
+        "type": "object"
+      },
+      "UserInvited": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "full_name": {
+            "title": "Full Name",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "must_change_password": {
+            "title": "Must Change Password",
+            "type": "boolean"
+          },
+          "role": {
+            "enum": [
+              "super_admin",
+              "org_admin",
+              "pharmacist",
+              "physician",
+              "auditor"
+            ],
+            "title": "Role",
+            "type": "string"
+          },
+          "setup_url": {
+            "title": "Setup Url",
+            "type": "string"
+          },
+          "temp_password": {
+            "description": "Показывается один раз",
+            "title": "Temp Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "role",
+          "is_active",
+          "must_change_password",
+          "created_at",
+          "temp_password",
+          "setup_url"
+        ],
+        "title": "UserInvited",
+        "type": "object"
+      },
+      "UserOut": {
+        "properties": {
+          "email": {
+            "examples": [
+              "doctor@hospital.ru"
+            ],
+            "title": "Email",
+            "type": "string"
+          },
+          "full_name": {
+            "examples": [
+              "Иванов И.И."
+            ],
+            "title": "Full Name",
+            "type": "string"
+          },
+          "id": {
+            "examples": [
+              5
+            ],
+            "title": "Id",
+            "type": "integer"
+          },
+          "must_change_password": {
+            "default": false,
+            "description": "Выдан временный пароль: его нужно сменить",
+            "title": "Must Change Password",
+            "type": "boolean"
+          },
+          "organization_id": {
+            "examples": [
+              1
+            ],
+            "title": "Organization Id",
+            "type": "integer"
+          },
+          "organization_name": {
+            "examples": [
+              "Городская больница №1"
+            ],
+            "title": "Organization Name",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "super_admin",
+              "org_admin",
+              "pharmacist",
+              "physician",
+              "auditor"
+            ],
+            "examples": [
+              "physician"
+            ],
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "role",
+          "organization_id",
+          "organization_name"
+        ],
+        "title": "UserOut",
+        "type": "object"
+      },
+      "UserPatch": {
+        "properties": {
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Active"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          }
+        },
+        "title": "UserPatch",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VerifyResponse": {
+        "properties": {
+          "first_invalid_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Invalid Id"
+          },
+          "total_records_checked": {
+            "title": "Total Records Checked",
+            "type": "integer"
+          },
+          "valid": {
+            "title": "Valid",
+            "type": "boolean"
+          },
+          "verified_at": {
+            "format": "date-time",
+            "title": "Verified At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "valid",
+          "first_invalid_id",
+          "total_records_checked",
+          "verified_at"
+        ],
+        "title": "VerifyResponse",
+        "type": "object"
+      },
+      "WeightInfo": {
+        "properties": {
+          "bmi": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              39.2
+            ],
+            "title": "Bmi"
+          },
+          "ibw_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              70.5
+            ],
+            "title": "Ibw Kg"
+          },
+          "tbw_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              120.0
+            ],
+            "title": "Tbw Kg"
+          },
+          "type": {
+            "examples": [
+              "ABW"
+            ],
+            "title": "Type",
+            "type": "string"
+          },
+          "used_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "examples": [
+              90.3
+            ],
+            "title": "Used Kg"
+          }
+        },
+        "required": [
+          "used_kg",
+          "type",
+          "tbw_kg",
+          "ibw_kg",
+          "bmi"
+        ],
+        "title": "WeightInfo",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "/api/v1/auth/token"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "info": {
+    "description": "Клинический инструмент поддержки решений для почечного дозирования антимикробных препаратов. Пилотная версия, не является медицинским изделием (SaMD).",
+    "title": "CDSS Pilot — почечное дозирование",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/admin/drugs": {
+      "get": {
+        "operationId": "list_drugs_api_v1_admin_drugs_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "include_archived",
+            "required": false,
+            "schema": {
+              "default": true,
+              "title": "Include Archived",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "organization_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DrugOut"
+                  },
+                  "title": "Response List Drugs Api V1 Admin Drugs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Препараты организации (активные и архивные)",
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "create_drug_api_v1_admin_drugs_post",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "organization_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrugCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrugOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Создать препарат",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/drugs/{drug_id}": {
+      "delete": {
+        "operationId": "archive_drug_api_v1_admin_drugs__drug_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "drug_id",
+            "required": true,
+            "schema": {
+              "title": "Drug Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Архивировать препарат (is_active=false)",
+        "tags": [
+          "admin"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_drug_api_v1_admin_drugs__drug_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "drug_id",
+            "required": true,
+            "schema": {
+              "title": "Drug Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrugPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrugOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Изменить препарат (только не архивный)",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/drugs/{drug_id}/rules": {
+      "get": {
+        "operationId": "list_rules_api_v1_admin_drugs__drug_id__rules_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "drug_id",
+            "required": true,
+            "schema": {
+              "title": "Drug Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleListOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Правила препарата, сгруппированы по версиям",
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "create_version_api_v1_admin_drugs__drug_id__rules_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "drug_id",
+            "required": true,
+            "schema": {
+              "title": "Drug Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RuleVersionSpec"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleVersionCreated"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Создать новую версию правил показания (старая версия закрывается)",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/organizations": {
+      "get": {
+        "operationId": "list_orgs_api_v1_admin_organizations_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OrgListItem"
+                  },
+                  "title": "Response List Orgs Api V1 Admin Organizations Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Все организации",
+        "tags": [
+          "organizations"
+        ]
+      },
+      "post": {
+        "operationId": "create_org_api_v1_admin_organizations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgCreated"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Создать организацию и первого org_admin",
+        "tags": [
+          "organizations"
+        ]
+      }
+    },
+    "/admin/organizations/{org_id}": {
+      "patch": {
+        "operationId": "patch_org_api_v1_admin_organizations__org_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org_id",
+            "required": true,
+            "schema": {
+              "title": "Org Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrgPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Изменить организацию / деактивировать",
+        "tags": [
+          "organizations"
+        ]
+      }
+    },
+    "/admin/rules/export": {
+      "get": {
+        "operationId": "export_rules_api_v1_admin_rules_export_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "drug_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Drug Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Экспорт активных правил в CSV",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/rules/import": {
+      "post": {
+        "operationId": "import_rules_api_v1_admin_rules_import_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_rules_api_v1_admin_rules_import_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Импорт правил из CSV (multipart)",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/rules/{rule_id}": {
+      "delete": {
+        "operationId": "retire_rule_api_v1_admin_rules__rule_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "rule_id",
+            "required": true,
+            "schema": {
+              "title": "Rule Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Закрыть (retire) правило",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "operationId": "list_users_api_v1_admin_users_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserAdminOut"
+                  },
+                  "title": "Response List Users Api V1 Admin Users Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Пользователи организации",
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "invite_api_v1_admin_users_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInvite"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInvited"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Пригласить пользователя (временный пароль в ответе)",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/users/{user_id}": {
+      "delete": {
+        "operationId": "deactivate_api_v1_admin_users__user_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Деактивировать пользователя (soft delete)",
+        "tags": [
+          "admin"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_user_api_v1_admin_users__user_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAdminOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Изменить роль / активность",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/audit": {
+      "get": {
+        "operationId": "list_audit_api_v1_audit_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "To"
+            }
+          },
+          {
+            "description": "Код препарата",
+            "in": "query",
+            "name": "drug",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Код препарата",
+              "title": "Drug"
+            }
+          },
+          {
+            "description": "pending/accepted/overridden/...",
+            "in": "query",
+            "name": "decision",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "pending/accepted/overridden/...",
+              "title": "Decision"
+            }
+          },
+          {
+            "in": "query",
+            "name": "patient_ref",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Patient Ref"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Список аудита (по расчётам)",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/audit/chain/verify": {
+      "get": {
+        "operationId": "verify_whole_chain_api_v1_audit_chain_verify_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Проверить всю HMAC-цепочку организации (для бейджа целостности)",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/audit/{audit_id}": {
+      "get": {
+        "operationId": "get_audit_api_v1_audit__audit_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "audit_id",
+            "required": true,
+            "schema": {
+              "title": "Audit Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditEntry"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Запись аудита",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/audit/{audit_id}/decision": {
+      "post": {
+        "operationId": "set_decision_api_v1_audit__audit_id__decision_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "audit_id",
+            "required": true,
+            "schema": {
+              "title": "Audit Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "409": {
+            "description": "Решение уже установлено"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Принять / переопределить / отклонить рекомендацию",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/audit/{audit_id}/verify": {
+      "get": {
+        "operationId": "verify_api_v1_audit__audit_id__verify_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "audit_id",
+            "required": true,
+            "schema": {
+              "title": "Audit Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Проверить HMAC-цепочку от первой записи до указанной",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/auth/change-password": {
+      "post": {
+        "operationId": "change_password_api_v1_auth_change_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Неверный текущий пароль или слабый новый"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Сменить пароль (в т.ч. временный)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Вход по email и паролю",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Выход (клиент удаляет токен)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "operationId": "me_api_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Текущий пользователь",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/calculate": {
+      "post": {
+        "description": "Возвращает Recommendation либо FailSafe (различаются по `calculation_mode`). Fail-safe — штатный исход, HTTP 200. Каждый расчёт пишется в аудит.",
+        "operationId": "calculate_dose_api_v1_calculate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Recommendation"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FailSafeResponse"
+                    }
+                  ],
+                  "title": "Response Calculate Dose Api V1 Calculate Post"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Ошибка валидации (ProblemDetails)"
+          },
+          "404": {
+            "description": "Препарат не найден (ProblemDetails)"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Рассчитать дозу",
+        "tags": [
+          "calculate"
+        ]
+      }
+    },
+    "/dashboard/export": {
+      "get": {
+        "operationId": "export_csv_api_v1_dashboard_export_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Экспорт метрик в CSV",
+        "tags": [
+          "dashboard"
+        ]
+      }
+    },
+    "/dashboard/metrics": {
+      "get": {
+        "operationId": "metrics_api_v1_dashboard_metrics_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardMetrics"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Метрики за период (по умолчанию 30 дней)",
+        "tags": [
+          "dashboard"
+        ]
+      }
+    },
+    "/demo/calculate": {
+      "post": {
+        "description": "Считает по встроенным seed-правилам. `audit_id` всегда 0: запись в аудит не создаётся.",
+        "operationId": "demo_calculate_api_v1_demo_calculate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemoCalculateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/Recommendation"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FailSafeResponse"
+                    }
+                  ],
+                  "title": "Response Demo Calculate Api V1 Demo Calculate Post"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Демо-расчёт без аутентификации и без записи в аудит",
+        "tags": [
+          "demo"
+        ]
+      }
+    },
+    "/demo/drugs": {
+      "get": {
+        "operationId": "demo_drugs_api_v1_demo_drugs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DemoDrug"
+                  },
+                  "title": "Response Demo Drugs Api V1 Demo Drugs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Препараты и показания demo-режима",
+        "tags": [
+          "demo"
+        ]
+      }
+    },
+    "/demo/scenarios": {
+      "get": {
+        "operationId": "scenarios_api_v1_demo_scenarios_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DemoScenario"
+                  },
+                  "title": "Response Scenarios Api V1 Demo Scenarios Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Три готовых demo-сценария",
+        "tags": [
+          "demo"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Liveness",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "ready_health_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Readiness",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/meta/drugs": {
+      "get": {
+        "operationId": "drugs_api_v1_meta_drugs_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DrugMetaOut"
+                  },
+                  "title": "Response Drugs Api V1 Meta Drugs Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Активные препараты текущей организации",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/meta/formulas": {
+      "get": {
+        "operationId": "formulas_api_v1_meta_formulas_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FormulaOut"
+                  },
+                  "title": "Response Formulas Api V1 Meta Formulas Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Справочник формул",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/meta/indications": {
+      "get": {
+        "operationId": "indications_api_v1_meta_indications_get",
+        "parameters": [
+          {
+            "description": "Код препарата",
+            "in": "query",
+            "name": "drug_code",
+            "required": true,
+            "schema": {
+              "description": "Код препарата",
+              "examples": [
+                "VANCO_IV"
+              ],
+              "title": "Drug Code",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Indications Api V1 Meta Indications Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Показания препарата (по активным правилам)",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/meta/override-reasons": {
+      "get": {
+        "operationId": "override_reasons_api_v1_meta_override_reasons_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OverrideReasonOut"
+                  },
+                  "title": "Response Override Reasons Api V1 Meta Override Reasons Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Категории переопределения",
+        "tags": [
+          "meta"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ]
+}
